@@ -9,4 +9,5 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 COPY ./main.py /app/main.py
 COPY ./start.sh /app/start.sh
 
-CMD ["bash", "start.sh"]
+ENTRYPOINT ["bash", "start.sh"]
+CMD ["0.0.0.0", "8000"]
