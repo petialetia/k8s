@@ -1,0 +1,10 @@
+FROM ubuntu
+
+WORKDIR /app
+
+COPY ./poller.sh /app/poller.sh
+
+RUN apt-get update
+RUN apt-get install -y curl
+
+ENTRYPOINT ["bash", "poller.sh"]
