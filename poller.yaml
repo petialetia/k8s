@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: poller
+spec:
+  template:
+    spec:
+      containers:
+      - name: poller
+        image: byrnedo/alpine-curl
+        command: ["/bin/sh", "-c", "while true; do curl -s http://${SERVER_SERVICE_SERVICE_HOST}:${SERVER_SERVICE_SERVICE_PORT}/statistics >> /logs/log.txt; sleep 5s; done"]
+        volumeMounts:
+          - name: log-volume
+            mountPath: /logs
+      restartPolicy: Never
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /logs
+          type: DirectoryOrCreate
+  backoffLimit: 4
