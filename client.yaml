@@ -8,7 +8,7 @@ spec:
       containers:
       - name: client
         image: byrnedo/alpine-curl
-        command: ["/bin/sh", "-c", "curl -s http://${SERVER_SERVICE_SERVICE_HOST}:${SERVER_SERVICE_SERVICE_PORT}/statistics >> /logs/log.txt"]
+        command: ["/bin/sh", "-c", "while true; do curl -s http://${SERVER_SERVICE_SERVICE_HOST}:${SERVER_SERVICE_SERVICE_PORT}/statistics >> /logs/log.txt; sleep 5s; done"]
         volumeMounts:
           - name: log-volume
             mountPath: /logs
