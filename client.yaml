@@ -8,6 +8,14 @@ spec:
       containers:
       - name: client
         image: byrnedo/alpine-curl
-        command: ["/bin/sh", "-c", "curl -s http://${SERVER_SERVICE_SERVICE_HOST}:${SERVER_SERVICE_SERVICE_PORT}/time"]
+        command: ["/bin/sh", "-c", "curl -s http://${SERVER_SERVICE_SERVICE_HOST}:${SERVER_SERVICE_SERVICE_PORT}/statistics >> /logs/log.txt"]
+        volumeMounts:
+          - name: log-volume
+            mountPath: /logs
       restartPolicy: Never
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /logs
+          type: DirectoryOrCreate
   backoffLimit: 4
